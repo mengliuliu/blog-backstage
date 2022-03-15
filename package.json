@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/mengliuliu/web-backstage#readme",
   "devDependencies": {
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "@types/styled-components": "^5.1.24",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
@@ -31,6 +34,7 @@
     "mini-css-extract-plugin": "^2.5.2",
     "ora": "^5.4.0",
     "rimraf": "^3.0.2",
+    "styled-components": "^5.3.3",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
     "url-loader": "^4.1.1",
@@ -39,5 +43,10 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.3",
     "webpackbar": "^5.0.2"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2"
   }
 }

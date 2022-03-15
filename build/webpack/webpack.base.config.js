@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "../../dist"),
     filename: "bundle.js",
+    // publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", "css", "less"],
@@ -35,6 +36,11 @@ module.exports = {
   //   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/, // .ts或者tsx后缀的文件，就是typescript文件
+        use: "ts-loader", // 就是上面安装的ts-loader
+        exclude: "/node-modules/", // 排除node-modules目录
+      },
       {
         test: /\.css$/i,
         use: [
