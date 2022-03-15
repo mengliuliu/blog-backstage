@@ -18,8 +18,8 @@ const App = () => {
 };
 
 const Box = styled.div`
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  height: 100%;
 `;
 
 export default App;
