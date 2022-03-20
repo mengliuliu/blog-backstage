@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Button, message } from 'antd';
 import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Link, Outlet } from "react-router-dom";
+import { history } from "@src/utils/router";
 import styled from "styled-components";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -12,6 +13,12 @@ const { SubMenu } = Menu;
 
 const MainContent = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
+
+  const quitLogin = () => {
+    message.success("退出登录成功")
+    localStorage.removeItem('token')
+    history.push("/home")
+  }
 
   const onCollapse = (collapsed: boolean) => {
     console.log(collapsed);
@@ -39,7 +46,11 @@ const MainContent = () => {
         </Sider>
 
         <Layout className="site-layout">
-          {/* <Header className="site-layout-background" style={{ padding: 0 }} /> */}
+          <div style={{
+            padding: "15px 15px 0 0",
+            display: "flex",
+            justifyContent: "flex-end"
+          }}><Button type="primary" onClick={quitLogin}>退出登录</Button></div>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
 
@@ -53,7 +64,7 @@ const MainContent = () => {
           </Content>
         </Layout>
       </Layout>
-    </Box>
+    </Box >
   )
 }
 

@@ -15,6 +15,8 @@ const Home = () => {
     ModuleApi.login(params).then((res) => {
       // 跳转到内容页面
       // history.push('/content')
+      // 存储登录信息
+      localStorage.setItem('token', res.data.token)
       history.push('/content/articleManage/articleList')
     }, (err) => {
       console.log("err: ", err)

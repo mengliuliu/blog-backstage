@@ -6,6 +6,10 @@ const myAxios = axios.create();
 myAxios.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
+    if (localStorage.getItem("token")) {
+      config.headers["Authorization"] =
+        "Bearer " + localStorage.getItem("token"); //把localStorage的token放在Authorization里
+    }
     return config;
   },
   function (error) {
