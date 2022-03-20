@@ -1,19 +1,11 @@
-// import { log } from "./log";
-// import "./style.css";
-
-// log("mengliu");
-
-// import React from 'react';
 import ReactDOM from "react-dom";
 import App from "./App";
-
 import "./style.css"
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { history, HistoryRouter } from "@src/utils/router";
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HistoryRouter history={history}>
     <App />
-  </BrowserRouter>,
-  // <App />,
+  </HistoryRouter>,
   document.getElementById("root")
 );

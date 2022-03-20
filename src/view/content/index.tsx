@@ -1,20 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ModuleApi from "@src/network/index";
+import { Layout, Menu, Breadcrumb } from 'antd';
+import {
+  UserOutlined,
+} from '@ant-design/icons';
+import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-const List = () => {
-  useEffect(() => {}, []);
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
+
+
+const MainContent = () => {
+  const [collapsed, setCollapsed] = useState<boolean>(false)
+
+  const onCollapse = (collapsed: boolean) => {
+    console.log(collapsed);
+    setCollapsed(collapsed);
+  };
 
   return (
     <Box>
-      <div>内容页面</div>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+          <div className="logo">
+            博客后台管理系统
+          </div>
+          <Menu theme="dark" defaultOpenKeys={["article"]} defaultSelectedKeys={['articleList']} mode="inline">
+
+            <SubMenu key="article" icon={<UserOutlined />} title="文章管理">
+              <Menu.Item key="articleList">
+                <Link to={'/content/articleManage/articleList'}>
+                  文章列表
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+
+          </Menu>
+        </Sider>
+
+        <Layout className="site-layout">
+          {/* <Header className="site-layout-background" style={{ padding: 0 }} /> */}
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+
+              {/* <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
+
+            </Breadcrumb>
+            <div className="site-layout-background" style={{ padding: 24, minHeight: "95%" }}>
+              <Outlet />
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     </Box>
-  );
-};
+  )
+}
 
 const Box = styled.div`
-  
-`;
+.logo {
+  height: 32px;
+  margin: 16px;
+  line-height: 32px;
+  color: white;
+  cursor: pointer;
+}
 
-export default List;
+.site-layout .site-layout-background {
+  background: #fff;
+}
+`
+export default MainContent

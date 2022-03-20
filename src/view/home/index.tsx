@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { history } from "@src/utils/router";
 import ModuleApi from "@src/network/index";
 import styled from "styled-components";
 
 const Home = () => {
-  useEffect(() => {}, []);
-
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+    const params = {
+      email: values.email,
+      password: values.password
+    }
+
+    ModuleApi.login(params).then((res) => {
+      // 跳转到内容页面
+      // history.push('/content')
+      history.push('/content/articleManage/articleList')
+    }, (err) => {
+      console.log("err: ", err)
+    })
   };
 
   return (
@@ -22,12 +31,12 @@ const Home = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
+            name="email"
+            rules={[{ required: true, message: "Please input your Email!" }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              placeholder="email"
             />
           </Form.Item>
           <Form.Item
@@ -41,16 +50,6 @@ const Home = () => {
             />
           </Form.Item>
           <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            {/* <a className="login-form-forgot" href="">
-              Forgot password
-            </a> */}
-          </Form.Item>
-
-          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
@@ -58,7 +57,6 @@ const Home = () => {
             >
               登录
             </Button>
-            {/* Or <a href="">register now!</a> */}
           </Form.Item>
         </Form>
       </div>
@@ -74,6 +72,13 @@ const Box = styled.div`
   align-items: center;
   .home {
     width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px red solid;
+    border-radius: 10px;
+    background: transparent;
   }
 `;
 
