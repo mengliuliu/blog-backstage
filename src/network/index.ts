@@ -3,6 +3,9 @@ export default {
   login(params: any) {
     return request.post("/api/auth/login", params);
   },
+  register(params: any) {
+    return request.post("/api/auth/register", params);
+  },
   getArticleList(params: any) {
     return request.post("/api/articles", params);
   },

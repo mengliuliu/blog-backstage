@@ -1,66 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Button } from "antd";
+import { Switch, Case } from 'react-if'
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { history } from "@src/utils/router";
+import LoginForm from "./components/Login"
+import RegisterForm from "./components/Register"
 import ModuleApi from "@src/network/index";
 import styled from "styled-components";
 
-const Home = () => {
-  const onFinish = (values: any) => {
-    const params = {
-      email: values.email,
-      password: values.password
-    }
+type PageType = 'login' | 'register' | 'forget'
 
-    ModuleApi.login(params).then((res) => {
-      // 跳转到内容页面
-      // history.push('/content')
-      // 存储登录信息
-      localStorage.setItem('token', res.data.token)
-      history.push('/content/articleManage/articleList')
-    }, (err) => {
-      console.log("err: ", err)
-    })
-  };
+const Home = () => {
+  const [pageType, setPageType] = React.useState('login')
+  const checkPageType = (type: PageType) => {
+    setPageType(type)
+  }
 
   return (
     <Box>
       <div className="home">
-        <Form
-          name="login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Please input your Email!" }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="email"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-button"
-            >
-              登录
-            </Button>
-          </Form.Item>
-        </Form>
+        <div className="title">博客后台管理系统</div>
+        <div className="form">
+          <Switch>
+            <Case condition={pageType === 'login'}>
+              <LoginForm checkPageType={checkPageType} />
+            </Case>
+            {/* <Case condition={pageType === 'forget'}>
+              <ForgetForm checkPageType={checkPageType} />
+            </Case> */}
+            <Case condition={pageType === 'register'}>
+              <RegisterForm checkPageType={checkPageType} />
+            </Case>
+          </Switch>
+        </div>
       </div>
     </Box>
   );
@@ -72,15 +44,24 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+	background-image: url(${require('@src/assets/images/loginBg.jpg')});
+	background-size: contain;
+	background-position: center;
   .home {
-    width: 300px;
-    height: 300px;
+    width: 330px;
+    height: 330px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border: 1px red solid;
-    border-radius: 10px;
-    background: transparent;
+    justify-content: space-evenly;
+		border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    .title {
+      font-size: 20px;
+      color: rgba(21, 35, 81, 1);
+      font-weight: 600;
+    }
   }
 `;
 

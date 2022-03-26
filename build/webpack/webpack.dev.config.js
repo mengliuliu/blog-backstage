@@ -5,13 +5,14 @@ const config = require("../../config");
 
 module.exports = merge(BaseConfig, {
   mode: "development",
+  devtool: "eval-source-map",
   devServer: {
     // static: false,
     static: {
       // static: ['assets']
       // directory: path.join(__dirname, "../../src"),
     },
-    historyApiFallback: true,// 浏览器刷新 404
+    historyApiFallback: true, // 浏览器刷新 404
     hot: true,
     open: false,
     host: config.dev.host,
