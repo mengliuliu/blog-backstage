@@ -57,12 +57,13 @@ const ArticleList = () => {
             // setArticleList(res.data)
             message.success("更新成功")
             setModalVisible(false)
+            setModalLoading(false)
             getArticleList()
         }, (err) => {
             console.log('err', err)
             message.error("更新失败")
             setModalVisible(false)
-
+            setModalLoading(false)
 
         })
     }

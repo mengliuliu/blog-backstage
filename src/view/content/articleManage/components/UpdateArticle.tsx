@@ -35,6 +35,14 @@ const UpdateArticle = (props: PropsStruct) => {
     useEffect(() => {
         console.log('showData[0]', showData[0])
         setContent(showData[0] ? showData[0].content : '')
+        // 如果传入showData设置默认表单值
+        if (showData[0]) {
+            form.setFieldsValue({
+                title: showData[0].title,
+                content: showData[0].content,
+            })
+        }
+
     }, [showData])
 
     useEffect(() => {
@@ -67,8 +75,8 @@ const UpdateArticle = (props: PropsStruct) => {
             }}
             onOk={submitData}
             onCancel={() => {
-                onCancel()
                 form.resetFields()
+                onCancel()
             }}
         >
             <Box>
@@ -89,7 +97,9 @@ const UpdateArticle = (props: PropsStruct) => {
                         rules={[{ required: true, type: 'string', message: '请输入文章内容', whitespace: false }]}
                         initialValue={showData[0] ? showData[0].content : ''}
                     >
-                        <Input.TextArea allowClear showCount placeholder="请输入文章内容" autoSize={{ minRows: 16, maxRows: 30 }} />
+                        <Input.TextArea allowClear showCount placeholder="请输入文章内容" autoSize={{ minRows: 16, maxRows: 30 }} onChange={(e) => {
+                            setContent(e.target.value)
+                        }} />
                     </Form.Item>
                     <Form.Item>
                         <ViewMd content={content}></ViewMd>
