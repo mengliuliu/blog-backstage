@@ -51,7 +51,7 @@ const MainContent = () => {
             display: "flex",
             justifyContent: "flex-end"
           }}><Button type="primary" onClick={quitLogin}>退出登录</Button></div>
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '0 16px', height: "calc(100vh - 47px)" }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
 
               {/* <Breadcrumb.Item>User</Breadcrumb.Item>

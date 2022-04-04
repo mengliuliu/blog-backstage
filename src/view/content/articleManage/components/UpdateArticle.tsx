@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input } from 'antd'
+import ViewMd from '@src/components/ViewMd'
 import styled from "styled-components";
 
 const { TextArea } = Input
@@ -22,13 +23,19 @@ export interface PropsStruct {
      */
     loading: boolean
     /**
- * @description 回显的数据
- */
+     * @description 回显的数据
+     */
     showData: any
 }
 const UpdateArticle = (props: PropsStruct) => {
     const { visible, onCancel, onSubmit, loading, showData } = props
     const [form] = Form.useForm()
+    const [content, setContent] = useState('')
+
+    useEffect(() => {
+        console.log('showData[0]', showData[0])
+        setContent(showData[0] ? showData[0].content : '')
+    }, [showData])
 
     useEffect(() => {
         if (!loading) {
@@ -50,18 +57,19 @@ const UpdateArticle = (props: PropsStruct) => {
 
     return (
         <Modal
+            centered
+            width="800px"
             visible={visible}
+            confirmLoading={loading}
+            bodyStyle={{
+                height: '600px',
+                padding: '40px',
+            }}
+            onOk={submitData}
             onCancel={() => {
                 onCancel()
                 form.resetFields()
             }}
-            onOk={submitData}
-            width="500px"
-            bodyStyle={{
-                height: '500px',
-                padding: '40px',
-            }}
-            confirmLoading={loading}
         >
             <Box>
                 <Form form={form}>
@@ -83,6 +91,9 @@ const UpdateArticle = (props: PropsStruct) => {
                     >
                         <Input.TextArea allowClear showCount placeholder="请输入文章内容" autoSize={{ minRows: 16, maxRows: 30 }} />
                     </Form.Item>
+                    <Form.Item>
+                        <ViewMd content={content}></ViewMd>
+                    </Form.Item>
                 </Form>
             </Box>
         </Modal >
@@ -90,7 +101,11 @@ const UpdateArticle = (props: PropsStruct) => {
 }
 
 const Box = styled.div`
-  
+    height: 100%;
+    overflow-y: scroll;
+    /* .ant-modal-content {
+        overflow: scroll;
+    } */
 `;
 
 export default UpdateArticle;

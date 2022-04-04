@@ -4,41 +4,54 @@ import {
     Button,
     message
 } from 'antd';
+import ViewMd from '@src/components/ViewMd'
 import ModuleApi from "@src/network/index";
 import styled from "styled-components";
+import { useState } from 'react';
 
 const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
-    },
+    // labelCol: {
+    //     xs: { span: 24 },
+    //     sm: { span: 6 },
+    // },
+    // wrapperCol: {
+    //     xs: { span: 24 },
+    //     sm: { span: 14 },
+    // },
 };
 
 const ArticleCreate = () => {
+    const [form] = Form.useForm();
+    const [content, setContent] = useState('')
 
-    const onFinish = (value: any) => {
-        console.log('value', value)
-        const params = {
-            title: value.title,
-            content: value.content,
-            createTime: new Date()
-        }
-        ModuleApi.createArticle(params).then((res) => {
-            message.success("创建成功")
-            console.log('res', res)
-        }, (err) => {
-            console.log('err', err)
+    const onFinish = () => {
+        form.validateFields().then(
+            value => {
+                console.log('value', value)
+                const params = {
+                    title: value.title,
+                    content: value.content,
+                    createTime: new Date()
+                }
 
-        })
+                ModuleApi.createArticle(params).then((res) => {
+                    message.success("创建成功")
+                    console.log('res', res)
+                }, (err) => {
+                    console.log('err', err)
+
+                })
+            },
+            err => {
+                console.log(err)
+            }
+        )
+
     }
 
     return (
         <Box>
-            <Form {...formItemLayout} onFinish={onFinish}>
+            <Form {...formItemLayout} form={form} onFinish={onFinish}>
                 <Form.Item
                     className="title"
                     label="标题"
@@ -56,10 +69,13 @@ const ArticleCreate = () => {
                     rules={[{ required: true, type: 'string', message: '请输入文章内容', whitespace: false }]}
                     initialValue={''}
                 >
-                    <Input.TextArea allowClear showCount placeholder="请输入文章内容" autoSize={{ minRows: 16, maxRows: 30 }} />
+                    <Input.TextArea allowClear showCount placeholder="请输入文章内容" autoSize={{ minRows: 16, maxRows: 30 }} onChange={(e) => {
+                        setContent(e.target.value)
+                    }} />
                 </Form.Item>
-
-                <Form.Item>
+                <Form.Item><ViewMd content={content}></ViewMd></Form.Item>
+                <Form.Item
+                >
                     <Button type="primary" htmlType="submit" className="createArticleButton" >
                         发布
                     </Button>

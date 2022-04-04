@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 const ArticleList = () => {
     const [articleList, setArticleList] = useState<any>([])
-    const [showData, setShowData] = useState<any>([])
+    const [showData, setShowData] = useState<any[]>([])
     const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 })
     const [tableLoading, setTableLoading] = useState(false)
 
@@ -80,6 +80,22 @@ const ArticleList = () => {
 
     const getColumns = () => {
         const columnsDic = {
+            content: {
+                dataIndex: 'content',
+                render: (text: any, record: any) => {
+                    return (
+
+                        <div onClick={() => {
+                            history.push('/content/articleManage/articleDetail', { articleDetail: record })
+                            // setShowData([record])
+                        }} style={{
+                            cursor: "pointer"
+                        }}>
+                            {record.content}
+                        </div>
+                    )
+                }
+            },
             is_delete: {
                 dataIndex: 'is_delete',
                 render: (text: any, record: any) => {
@@ -102,9 +118,13 @@ const ArticleList = () => {
                         setModalVisible(true)
                         // 设置回显数据
                         setShowData([record])
+                    }} style={{
+                        cursor: "pointer"
                     }}>修改</div>
                     &nbsp;&nbsp;
-                    <div>
+                    <div style={{
+                        cursor: "pointer"
+                    }}>
                         <Popconfirm
                             title="确认要删除这条记录？"
                             onConfirm={() => {

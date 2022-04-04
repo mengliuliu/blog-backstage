@@ -63,6 +63,10 @@ const BaseTable = (props: PropsStruct) => {
 }
 
 const Box = styled.div`
+.ant-table {
+	height: calc(100vh - 210px);
+    overflow-y: scroll;
+}
 `
 
 export default BaseTable
