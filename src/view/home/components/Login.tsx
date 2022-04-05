@@ -38,11 +38,11 @@ const LoginForm = (props: PropsStruct) => {
             email: values.email,
             password: values.password
         }
-        ModuleApi.login(params).then((res) => {
+        ModuleApi.login(params).then((res: any) => {
             // 跳转到内容页面
             // history.push('/content')
             // 存储登录信息
-            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('token', res.token)
             history.push('/content/articleManage/articleList')
         }, (err) => {
             // message.error(err.message)

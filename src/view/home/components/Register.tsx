@@ -12,6 +12,9 @@ interface PropsStruct {
 
 const RegisterForm = (props: PropsStruct) => {
     const onFinish = (values: any) => {
+        if (values.password !== values.againPassword) {
+            return message.error('两次密码输入不一致')
+        }
         const params = {
             email: values.email,
             password: values.password

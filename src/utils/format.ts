@@ -1,4 +1,4 @@
-import { numberToThousands, stampToTime } from "./timeFilter";
+import { numberToThousands, stampToTime } from './timeFilter';
 
 //数字格式化
 const formatNumber = {
@@ -8,11 +8,11 @@ const formatNumber = {
   yuanToCent(text: number | string) {},
   //添加 '￥' 字符
   addUnit(text: number | string) {
-    return (text = "￥" + numberToThousands(Number(text).toFixed(2)));
+    return (text = '￥' + numberToThousands(Number(text).toFixed(2)));
   },
   //添加 '￥' 字符
   withoutUnit(text: number | string) {
-    return (text = "￥" + numberToThousands(Number(text).toFixed(2)));
+    return (text = '￥' + numberToThousands(Number(text).toFixed(2)));
   },
   //转千进制,每三个数字增加一个 ','
   addThousandsSign() {},
@@ -21,14 +21,14 @@ const formatNumber = {
   //向下截取两位小数，不做四舍五入。如，2.789 => 2.78 ws：位数
   toFix2(value: any, ws: number = 2) {
     let result = String(value);
-    if (result.indexOf(".") != -1) {
-      result = result.slice(0, result.indexOf(".") + ws + 1);
+    if (result.indexOf('.') != -1) {
+      result = result.slice(0, result.indexOf('.') + ws + 1);
     }
     return Number(result);
   },
   //数字百分比化
   percent(num: number) {
-    return num / 100 + "%";
+    return num / 100 + '%';
   },
 };
 
@@ -68,20 +68,20 @@ const formatTableData = {
 //处理win/mac 文件路径区别
 const formatFilePath = (path: string) => {
   const isWindows = true;
-  path = "file://" + path + "##scrollbars=0&toolbar=0&statusbar=0&view=FitH";
-  if (isWindows) path = path.replace("/", "\\");
+  path = 'file://' + path + '##scrollbars=0&toolbar=0&statusbar=0&view=FitH';
+  if (isWindows) path = path.replace('/', '\\');
   return path;
 };
 
 const formatPdfFileUrl = (src: string) => {
-  return src + "##scrollbars=0&toolbar=0&statusbar=0&view=FitH";
+  return src + '##scrollbars=0&toolbar=0&statusbar=0&view=FitH';
 };
 
 //在请求url前添加baseurl
 const formatUrl = (url: string) => {
   const env = process.env.NODE_ENV;
-  if (env === "development") var baseUrl = "/api";
-  // else var baseUrl: string = window.config.serverAddress
+  if (env === 'development') var baseUrl = '/api';
+  else var baseUrl: string = 'http://mengliublog.com:3000';
   return baseUrl + url;
 };
 

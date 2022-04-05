@@ -1,24 +1,26 @@
-import request from "../utils/request";
+import request from '../utils/request';
+import { formatUrl } from '@src/utils/format';
+
 export default {
   login(params: any) {
-    return request.post("/api/auth/login", params);
+    return request.post(formatUrl('/auth/login'), params);
   },
   register(params: any) {
-    return request.post("/api/auth/register", params);
+    return request.post(formatUrl('/auth/register'), params);
   },
   getArticleList(params: any) {
-    return request.post("/api/articles", params);
+    return request.post(formatUrl('/articles'), params);
   },
   getArticleDetail(params: any) {
-    return request.get("/api/articles/" + params.id);
+    return request.get(formatUrl('/articles/') + params.id);
   },
   createArticle(params: any) {
-    return request.post("/api/createArticle", params);
+    return request.post(formatUrl('/createArticle'), params);
   },
   deleteArticle(params: any) {
-    return request.post("/api/deleteArticle", params);
+    return request.post(formatUrl('/deleteArticle'), params);
   },
   updateArticle(params: any) {
-    return request.post("/api/updateArticle", params);
+    return request.post(formatUrl('/updateArticle'), params);
   },
 };
