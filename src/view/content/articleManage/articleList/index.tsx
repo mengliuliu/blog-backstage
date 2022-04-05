@@ -24,9 +24,9 @@ const ArticleList = () => {
 
     const getArticleList = () => {
         setTableLoading(true)
-        ModuleApi.getArticleList({ all: true }).then((res) => {
-            setArticleList(res.data)
-            pagination.total = res.data.length
+        ModuleApi.getArticleList({ all: true }).then((res: any) => {
+            setArticleList(res.list)
+            pagination.total = res.total
             setPagination({ ...pagination })
             setTableLoading(false)
         }, (err) => {
